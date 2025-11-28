@@ -12,12 +12,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Vector2 input = Vector2.zero;
     private Vector2 lookInput = Vector2.zero;
+    private Vector3 respawn_point;
+    private Quaternion respawn_rotation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        respawn_point = transform.position;
+        respawn_rotation = Quaternion.Euler(Vector3.zero);
     }
 
     void FixedUpdate()
@@ -34,7 +38,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         float camera_x_rotation = 0f;
         camera_x_rotation += -1f * lookInput.y * looksens * Time.deltaTime;
-        if (mainCamera.transform.localRotation.x * 90 > 80)
+        if (mainCamera.transform.localRotation.x * 90 > 60)
         {
             camera_x_rotation = Mathf.Clamp(camera_x_rotation, -Mathf.Infinity, 0);
         }
@@ -72,17 +76,55 @@ public class PlayerBehaviour : MonoBehaviour
         
     }
 
+    public void Fire(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            GameObject button = FindButton();
+
+            if (button != null)
+            {
+                button.GetComponent<ButtonBehaviour>().Activate();
+            }
+        }
+    }
+
     bool IsGrounded()
     {
         float GroundedDistance = 2f;
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb.linearVelocity.y == 0)
         {
-            return Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, GroundedDistance);
+            return Physics.Raycast(transform.position, Vector3.down, GroundedDistance);
         }
         else
         {
             return false;
+        }
+    }
+
+    GameObject FindButton()
+    {
+        RaycastHit hit;
+        
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, 2f))
+        {
+            if (hit.collider.gameObject.CompareTag("Button"))
+            {
+                return hit.collider.gameObject;
+            }
+        }
+        
+        return null;
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Hazard"))
+        {
+            transform.position = respawn_point;
+            transform.rotation = respawn_rotation;
+            mainCamera.transform.rotation = respawn_rotation;
         }
     }
 }
