@@ -91,11 +91,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     bool IsGrounded()
     {
-        float GroundedDistance = 2f;
+        float GroundedDistance = 2.5f;
+        RaycastHit info;
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb.linearVelocity.y == 0)
         {
-            return Physics.Raycast(transform.position, Vector3.down, GroundedDistance);
+            return Physics.SphereCast(transform.position, GroundedDistance, Vector3.down, out info);
         }
         else
         {
