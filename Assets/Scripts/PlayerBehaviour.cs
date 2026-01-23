@@ -91,10 +91,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     bool IsGrounded()
     {
-        float GroundedDistance = 2.5f;
+        float GroundedDistance = 0.2f;
         RaycastHit info;
         Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb.linearVelocity.y == 0)
+        if (Mathf.Abs(rb.linearVelocity.y) <= 0.1)
         {
             return Physics.SphereCast(transform.position, GroundedDistance, Vector3.down, out info);
         }
@@ -127,5 +127,11 @@ public class PlayerBehaviour : MonoBehaviour
             transform.rotation = respawn_rotation;
             mainCamera.transform.rotation = respawn_rotation;
         }
+    }
+
+    public void ChangeRespawn(Vector3 newValue, Quaternion newrotValue)
+    {
+        respawn_point = newValue;
+        respawn_rotation = newrotValue;
     }
 }
