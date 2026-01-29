@@ -5,6 +5,8 @@ public class GoalBehaviour : MonoBehaviour
 {
     [SerializeField] private string sceneToLoad = "FinalLevel";
 
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

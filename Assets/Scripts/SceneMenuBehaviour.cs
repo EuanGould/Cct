@@ -6,6 +6,12 @@ public class SceneMenuBehaviour : MonoBehaviour
 {
     [SerializeField] private string sceneName;
 
+    private void Awake()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void loadScene()
     {
         SceneManager.LoadScene(sceneName);
