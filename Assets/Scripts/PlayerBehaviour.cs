@@ -16,11 +16,11 @@ public class PlayerBehaviour : MonoBehaviour
     private Quaternion respawn_rotation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        respawn_point = transform.position;
+        respawn_point = new Vector3(-2.99000001f, 0.870999992f, -0.438700676f);
         respawn_rotation = Quaternion.Euler(Vector3.zero);
     }
 
