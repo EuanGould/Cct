@@ -15,6 +15,9 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 respawn_point;
     private Quaternion respawn_rotation;
 
+    public bool able_move = true;
+    public bool crosshair_on = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -27,6 +30,11 @@ public class PlayerBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 step = transform.forward * input.y + transform.right * input.x;
+
+        if (!able_move)
+        {
+            step = Vector3.zero;
+        }
 
         GetComponent<Rigidbody>().linearVelocity = new Vector3(step.normalized.x * speed, GetComponent<Rigidbody>().linearVelocity.y, step.normalized.z * speed);
     }
@@ -47,7 +55,8 @@ public class PlayerBehaviour : MonoBehaviour
             camera_x_rotation = Mathf.Clamp(camera_x_rotation, 0, Mathf.Infinity);
         }
 
-            mainCamera.transform.Rotate(camera_x_rotation, 0, 0);
+        mainCamera.transform.Rotate(camera_x_rotation, 0, 0);
+
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -69,7 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         LayerMask layerMask = LayerMask.GetMask("Ground");
         // Does the ray intersect any objects excluding the player layer
-        if (IsGrounded())
+        if (IsGrounded() && able_move)
         {
             GetComponent<Rigidbody>().linearVelocity += new Vector3(0f, jump_force, 0f);
         }
@@ -94,7 +103,7 @@ public class PlayerBehaviour : MonoBehaviour
         float GroundedDistance = 0.2f;
         RaycastHit info;
         Rigidbody rb = GetComponent<Rigidbody>();
-        if (Mathf.Abs(rb.linearVelocity.y) <= 0.1)
+        if (Mathf.Abs(rb.linearVelocity.y) <= 0.03)
         {
             return Physics.SphereCast(transform.position, GroundedDistance, Vector3.down, out info);
         }

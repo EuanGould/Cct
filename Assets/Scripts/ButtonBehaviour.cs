@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    [SerializeField] ActivatableBehaviour activatable;
-    [SerializeField] float timePressed;
+    [SerializeField] protected ActivatableBehaviour activatable;
+    [SerializeField] protected float timePressed;
 
-    private float timer = 0f;
+    protected float timer = 0f;
 
-    public void Activate()
+    public virtual void Activate()
     {
         activatable.Activate();
         timer = timePressed;
