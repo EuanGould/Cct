@@ -17,6 +17,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool able_move = true;
     public bool crosshair_on = true;
+    public bool able_look = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -42,10 +43,15 @@ public class PlayerBehaviour : MonoBehaviour
     private void Update()
     {
         float lookStep = lookInput.x * looksens * Time.deltaTime;
-        transform.Rotate(new Vector3(0, 1, 0), lookStep);
+        if (able_look)
+        {
+            transform.Rotate(new Vector3(0, 1, 0), lookStep);
+        }
 
         float camera_x_rotation = 0f;
+
         camera_x_rotation += -1f * lookInput.y * looksens * Time.deltaTime;
+
         if (mainCamera.transform.localRotation.x * 90 > 60)
         {
             camera_x_rotation = Mathf.Clamp(camera_x_rotation, -Mathf.Infinity, 0);
@@ -55,7 +61,10 @@ public class PlayerBehaviour : MonoBehaviour
             camera_x_rotation = Mathf.Clamp(camera_x_rotation, 0, Mathf.Infinity);
         }
 
-        mainCamera.transform.Rotate(camera_x_rotation, 0, 0);
+        if (able_look)
+        {
+            mainCamera.transform.Rotate(camera_x_rotation, 0, 0);
+        }
 
     }
 
