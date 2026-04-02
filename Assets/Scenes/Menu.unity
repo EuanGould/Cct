@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 835825071}
   - component: {fileID: 835825070}
   m_Layer: 5
-  m_Name: Tutorial5Button (1)
+  m_Name: Tutorial6Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade812a2adf9198479ae9a3570408d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Tutorial 5
+  sceneName: Tutorial 6
 --- !u!114 &835825071
 MonoBehaviour:
   m_ObjectHideFlags: 0
