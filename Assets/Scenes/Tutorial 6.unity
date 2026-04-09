@@ -3387,6 +3387,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3566475059123872389, guid: 263a8e5579e2a094caf651d31b23591b, type: 3}
+      propertyPath: looksens
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566475059123872389, guid: 263a8e5579e2a094caf651d31b23591b, type: 3}
       propertyPath: able_look
       value: 1
       objectReference: {fileID: 0}
